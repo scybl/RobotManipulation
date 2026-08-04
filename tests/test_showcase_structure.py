@@ -1,5 +1,7 @@
 from pathlib import Path
+import re
 import subprocess
+import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,6 +46,19 @@ def test_project_owned_ros_packages_use_functional_names():
     for project, ros_package in ROS_PACKAGES.items():
         assert (ROOT / project / ros_package).is_dir()
         assert "cw" not in ros_package
+
+
+def test_ros_package_metadata_and_cmake_sources_are_consistent():
+    for project, ros_package in ROS_PACKAGES.items():
+        package_dir = ROOT / project / ros_package
+        package_name = package_dir.name
+        package_xml = ET.parse(package_dir / "package.xml")
+        assert package_xml.findtext("name") == package_name
+
+        cmake = (package_dir / "CMakeLists.txt").read_text(encoding="utf-8")
+        assert f"project({package_name})" in cmake
+        for source in re.findall(r"src/[A-Za-z0-9_]+\\.cpp", cmake):
+            assert (package_dir / source).is_file()
 
 
 def test_shell_entrypoints_are_syntax_valid_without_ros():
