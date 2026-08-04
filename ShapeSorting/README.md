@@ -1,35 +1,37 @@
 # ShapeSorting
 
-ShapeSorting implements a ROS 2 Humble manipulation pipeline for recognising nought and cross objects from point clouds, estimating their pose, and sorting them with a simulated robot arm. It combines model assets, point-cloud signatures, octomap-aware scene handling, MoveIt planning, and task-specific pick-and-place routines.
+[English](README_en.md)
 
-The source package is stored under `src/shape_sorting_solution/`. The functional project name is used at the folder and README level; external simulator spawner package names are retained only where the supplied task services require them.
+ShapeSorting 是一个 ROS 2 Humble 机器人感知与操作项目，用于从点云中识别 nought 和 cross 物体、估计位姿，并用仿真机械臂完成分类放置。项目结合模型资产、点云签名、场景障碍处理、MoveIt 规划和任务化抓取流程。
 
-## Highlights
+源码包位于 `src/shape_sorting_solution/`。项目目录和 README 使用功能命名；外部 simulator spawner 包名仅在课程仿真服务接口要求时保留。
 
-| Area | Implementation |
+## 亮点
+
+| 方向 | 实现 |
 | --- | --- |
-| Shape assets | STL and PCD references for nought/cross objects |
-| Scene understanding | Point-cloud clustering, pairwise shape signatures, and obstacle registration |
-| Motion planning | MoveIt trajectories with top-down grasp poses and carry/place waypoints |
-| Task execution | Three task service callbacks covering recognition, sorting, and cluttered scenes |
+| 形状资产 | nought/cross 物体的 STL 与 PCD 参考 |
+| 场景理解 | 点云聚类、成对形状签名和障碍注册 |
+| 运动规划 | 顶部抓取位姿、搬运路径和 MoveIt 轨迹 |
+| 任务执行 | 三个 service callback 覆盖识别、分类和复杂场景 |
 
-## One-Command Setup
+## 一键配置
 
 ```bash
 bash scripts/setup_environment.sh
 ```
 
-The script sources ROS 2 Humble, sets the runtime environment variables used during testing, and builds the package with `colcon`.
+脚本会 source ROS 2 Humble，设置测试运行需要的环境变量，并用 `colcon` 构建包。
 
-## Run
+## 运行
 
-Open one terminal for the simulator and solution node:
+一个终端启动仿真器和解法节点：
 
 ```bash
 bash scripts/run_demo.sh launch
 ```
 
-Open another terminal to trigger a task:
+另一个终端触发任务：
 
 ```bash
 bash scripts/run_demo.sh task 1
@@ -37,25 +39,26 @@ bash scripts/run_demo.sh task 2
 bash scripts/run_demo.sh task 3
 ```
 
-You can also pass the task number directly:
+也可以直接传任务编号：
 
 ```bash
 bash scripts/run_demo.sh 2
 ```
 
-## Result Snapshot
+## 结果快照
 
-| Task | Demonstrated behaviour | Reported stability |
+| 任务 | 展示行为 | 记录稳定性 |
 | --- | --- | --- |
-| Task 1 | Shape recognition and manipulation | Above 90 percent |
-| Task 2 | Deterministic object handling | 100 percent in the recorded team runs |
-| Task 3 | Clutter-aware pick-and-place | Above 90 percent |
+| Task 1 | 形状识别与操作 | 超过 90% |
+| Task 2 | 确定性物体处理 | 记录运行中 100% |
+| Task 3 | 避障场景下抓取放置 | 超过 90% |
 
-## Layout
+## 结构
 
 ```text
 .
 |-- README.md
+|-- README_en.md
 |-- scripts/
 |   |-- setup_environment.sh
 |   `-- run_demo.sh

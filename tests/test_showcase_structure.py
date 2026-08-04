@@ -20,8 +20,9 @@ ROS_PACKAGES = {
 
 def test_root_readme_has_quick_start_index_and_compatibility_note():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "## Quick Start Index" in readme
-    assert "External `cw1_world_spawner` and `cw2_world_spawner`" in readme
+    assert "## 快速上手索引" in readme
+    assert "外部依赖 `cw1_world_spawner` 和 `cw2_world_spawner`" in readme
+    assert (ROOT / "README_en.md").is_file()
     for project in PROJECTS:
         assert project in readme
 
@@ -36,10 +37,11 @@ def test_project_folder_names_are_pascal_case():
 def test_project_readmes_present_functional_entrypoints():
     for project in PROJECTS:
         readme = (ROOT / project / "README.md").read_text(encoding="utf-8")
-        assert "## One-Command Setup" in readme
-        assert "## Run" in readme
-        assert "## Result Snapshot" in readme
+        assert "## 一键配置" in readme
+        assert "## 运行" in readme
+        assert "## 结果快照" in readme
         assert ROS_PACKAGES[project] in readme
+        assert (ROOT / project / "README_en.md").is_file()
 
 
 def test_project_owned_ros_packages_use_functional_names():

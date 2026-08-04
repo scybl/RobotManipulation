@@ -1,29 +1,32 @@
 # RobotManipulation
 
-RobotManipulation is organised as two independent ROS 2 robotics projects. The original submission archives are preserved under `archive/`, while the showcase entry points use functional project names.
+[English](README_en.md)
 
-| Project | Focus | Main demo | Environment |
+RobotManipulation 是一个 ROS 2 Humble 机器人操作与感知展示仓库，包含两个相互独立的仿真项目。原始提交归档保留在 `archive/`，展示入口统一使用功能命名。
+
+| 项目 | 重点能力 | 主演示 | 环境 |
 | --- | --- | --- | --- |
-| `PickPlace` | Object detection, localisation, grasping, and basket placement | Pick-and-place tasks 1-3 | ROS 2 Humble |
-| `ShapeSorting` | Point-cloud shape recognition, scene scanning, and object sorting | Nought/cross manipulation tasks 1-3 | ROS 2 Humble |
+| `PickPlace` | 目标检测、定位、抓取与篮筐放置 | Pick-and-place 任务 1-3 | ROS 2 Humble |
+| `ShapeSorting` | 点云形状识别、场景扫描与物体分类放置 | Nought/cross 操作任务 1-3 | ROS 2 Humble |
 
-## Quick Start Index
+## 快速上手索引
 
-| Need | Start here |
+| 目标 | 入口 |
 | --- | --- |
-| Pick-and-place setup | `cd PickPlace && bash scripts/setup_environment.sh` |
-| Pick-and-place launch | `cd PickPlace && bash scripts/run_demo.sh launch` |
-| Shape-sorting setup | `cd ShapeSorting && bash scripts/setup_environment.sh` |
-| Shape-sorting launch | `cd ShapeSorting && bash scripts/run_demo.sh launch` |
-| Structural tests without ROS | `conda run -n codex_python pytest tests/ -q` |
+| PickPlace 环境配置 | `cd PickPlace && bash scripts/setup_environment.sh` |
+| PickPlace 启动演示 | `cd PickPlace && bash scripts/run_demo.sh launch` |
+| ShapeSorting 环境配置 | `cd ShapeSorting && bash scripts/setup_environment.sh` |
+| ShapeSorting 启动演示 | `cd ShapeSorting && bash scripts/run_demo.sh launch` |
+| 无 ROS 结构测试 | `conda run -n codex_python pytest tests/ -q` |
 
-## Repository Notes
+## 仓库说明
 
-- Each project has its own README, setup script, run script, and ROS workspace folders.
-- Project-owned ROS packages under `src/` use functional package names. External `cw1_world_spawner` and `cw2_world_spawner` dependencies are retained because the supplied simulator services expose those package names.
-- Use the functional folder names for presentation and portfolio links.
+- 每个子项目都有独立 README、环境脚本、运行脚本和 ROS 工作空间目录。
+- 项目自有 ROS 包使用功能命名：`pick_place_solution` 与 `shape_sorting_solution`。
+- 外部依赖 `cw1_world_spawner` 和 `cw2_world_spawner` 是课程仿真器暴露的服务包名，作为兼容接口保留。
+- 对外展示和作品集链接请使用 `RobotManipulation`、`PickPlace`、`ShapeSorting` 这些功能名。
 
-## Quick Commands
+## 快速命令
 
 ```bash
 cd PickPlace
@@ -36,3 +39,10 @@ cd ShapeSorting
 bash scripts/setup_environment.sh
 bash scripts/run_demo.sh launch
 ```
+
+## 结果快照
+
+| 子项目 | 展示效果 |
+| --- | --- |
+| `PickPlace` | 从点云中检测目标，规划抓取动作，并完成放置任务 |
+| `ShapeSorting` | 识别 nought/cross 形状，处理场景障碍，并完成分类放置 |
