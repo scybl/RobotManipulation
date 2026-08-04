@@ -1,0 +1,8 @@
+build/
+install/
+log/
+.colcon/
+.DS_Store
+*.bag
+*.db3
+__pycache__/
