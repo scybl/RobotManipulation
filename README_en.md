@@ -4,6 +4,20 @@
 
 RobotManipulation is organised as two independent ROS 2 robotics projects. The original submission archives are preserved under `archive/`, while the showcase entry points use functional project names.
 
+![RobotManipulation preview](docs/images/manipulation-preview.svg)
+
+## Resume Highlights
+
+- Contains two ROS 2 manipulation pipelines: point-cloud pick-and-place, and nought/cross shape recognition with sorting.
+- Renames project-owned ROS packages to `pick_place_solution` and `shape_sorting_solution` while retaining external spawners for simulator compatibility.
+- Provides no-ROS structure tests that validate README coverage, shell scripts, CMake/package metadata, and source paths.
+
+## Reproducibility Boundaries
+
+- Full demos require ROS 2 Humble, MoveIt, Gazebo, and the simulator spawner packages.
+- GitHub Actions should avoid graphical simulation and run structure, shell syntax, and package-name consistency checks.
+- `archive/` preserves original submissions, but the current functional folders are the public entry points.
+
 | Project | Focus | Main demo | Environment |
 | --- | --- | --- | --- |
 | `PickPlace` | Object detection, localisation, grasping, and basket placement | Pick-and-place tasks 1-3 | ROS 2 Humble |
