@@ -2,54 +2,25 @@
 
 [English](README_en.md)
 
-RobotManipulation 是一个 ROS 2 Humble 机器人操作与感知展示仓库，包含两个相互独立的仿真项目。原始提交归档保留在 `archive/`，展示入口统一使用功能命名。
+RobotManipulation 包含两个独立的 ROS 2 Humble 机器人操作项目：`PickPlace` 和 `ShapeSorting`。
 
 ![RobotManipulation 演示预览](docs/images/manipulation-preview.svg)
 
+## 功能说明
+
+- `PickPlace`：从点云中定位目标，规划抓取动作，并放入指定篮筐。
+- `ShapeSorting`：识别 nought/cross 物体，扫描场景并完成分类放置。
+- 自有 ROS 包使用功能命名：`pick_place_solution` 和 `shape_sorting_solution`。
+- 外部 spawner 包名保留为仿真接口兼容项。
+
 ## 结果展示
 
-| 展示项 | 当前结果 | 说明 |
-| --- | --- | --- |
-| 独立演示 | `PickPlace` / `ShapeSorting` | 两个 ROS 2 Humble 操作项目独立运行 |
-| 感知链路 | point cloud -> pose / shape class | 从点云目标定位到抓取或分类放置 |
-| 工程入口 | `pick_place_solution`, `shape_sorting_solution` | 自有包名已按功能重命名 |
-| 轻量验证 | 8 个结构测试 | 无 ROS 环境下检查 README、脚本和包元数据 |
-
-## 核心功能
-
-- 包含两条 ROS 2 操作流水线：点云目标抓取放置，以及 nought/cross 形状识别与分类放置。
-- 将自有 ROS 包重命名为 `pick_place_solution` 和 `shape_sorting_solution`，保留外部 spawner 作为仿真兼容接口。
-- 提供无 ROS 结构测试，验证 README、脚本、CMake、package.xml 和源码路径一致性。
-
-## 复现边界
-
-- 完整演示需要 ROS 2 Humble、MoveIt、Gazebo 和课程仿真器 spawner 包。
-- GitHub Actions 不运行图形仿真，只验证结构、脚本语法和 ROS 包命名一致性。
-- `archive/` 保留原始提交材料，但对外入口统一使用当前功能命名目录。
-
-| 项目 | 重点能力 | 主演示 | 环境 |
-| --- | --- | --- | --- |
-| `PickPlace` | 目标检测、定位、抓取与篮筐放置 | Pick-and-place 任务 1-3 | ROS 2 Humble |
-| `ShapeSorting` | 点云形状识别、场景扫描与物体分类放置 | Nought/cross 操作任务 1-3 | ROS 2 Humble |
-
-## 快速上手索引
-
-| 目标 | 入口 |
+| 子项目 | 输出 |
 | --- | --- |
-| PickPlace 环境配置 | `cd PickPlace && bash scripts/setup_environment.sh` |
-| PickPlace 启动演示 | `cd PickPlace && bash scripts/run_demo.sh launch` |
-| ShapeSorting 环境配置 | `cd ShapeSorting && bash scripts/setup_environment.sh` |
-| ShapeSorting 启动演示 | `cd ShapeSorting && bash scripts/run_demo.sh launch` |
-| 无 ROS 结构测试 | `conda run -n codex_python pytest tests/ -q` |
+| `PickPlace` | 点云目标检测、抓取和放置 |
+| `ShapeSorting` | 形状识别、场景扫描和分类放置 |
 
-## 仓库说明
-
-- 每个子项目都有独立 README、环境脚本、运行脚本和 ROS 工作空间目录。
-- 项目自有 ROS 包使用功能命名：`pick_place_solution` 与 `shape_sorting_solution`。
-- 外部依赖 `cw1_world_spawner` 和 `cw2_world_spawner` 是课程仿真器暴露的服务包名，作为兼容接口保留。
-- 项目入口和文档统一使用 `RobotManipulation`、`PickPlace`、`ShapeSorting` 这些功能名。
-
-## 快速命令
+## 快速上手
 
 ```bash
 cd PickPlace
@@ -63,9 +34,29 @@ bash scripts/setup_environment.sh
 bash scripts/run_demo.sh launch
 ```
 
-## 结果快照
+## 环境要求
 
-| 子项目 | 展示效果 |
-| --- | --- |
-| `PickPlace` | 从点云中检测目标，规划抓取动作，并完成放置任务 |
-| `ShapeSorting` | 识别 nought/cross 形状，处理场景障碍，并完成分类放置 |
+- ROS 2 Humble
+- MoveIt
+- Gazebo
+- 项目对应的 world spawner 包
+
+## 数据说明
+
+项目使用仿真场景，不依赖外部数据集。完整运行需要本地 ROS 2 和仿真器环境。
+
+## 目录结构
+
+```text
+PickPlace/              抓取放置项目
+ShapeSorting/           形状分类放置项目
+docs/images/            README 结果图
+tests/                  无 ROS 结构测试
+archive/                原始材料归档
+```
+
+## 测试
+
+```bash
+pytest tests/ -q
+```

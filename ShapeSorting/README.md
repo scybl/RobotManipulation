@@ -6,7 +6,7 @@ ShapeSorting 是一个 ROS 2 Humble 机器人感知与操作项目，用于从�
 
 源码包位于 `src/shape_sorting_solution/`。项目目录和 README 使用功能命名；外部 simulator spawner 包名仅在课程仿真服务接口要求时保留。
 
-## 亮点
+## 功能说明
 
 | 方向 | 实现 |
 | --- | --- |
@@ -15,7 +15,7 @@ ShapeSorting 是一个 ROS 2 Humble 机器人感知与操作项目，用于从�
 | 运动规划 | 顶部抓取位姿、搬运路径和 MoveIt 轨迹 |
 | 任务执行 | 三个 service callback 覆盖识别、分类和复杂场景 |
 
-## 一键配置
+## 快速上手
 
 ```bash
 bash scripts/setup_environment.sh
@@ -45,7 +45,7 @@ bash scripts/run_demo.sh task 3
 bash scripts/run_demo.sh 2
 ```
 
-## 结果快照
+## 结果展示
 
 | 任务 | 展示行为 | 记录稳定性 |
 | --- | --- | --- |
@@ -53,7 +53,7 @@ bash scripts/run_demo.sh 2
 | Task 2 | 确定性物体处理 | 记录运行中 100% |
 | Task 3 | 避障场景下抓取放置 | 超过 90% |
 
-## 结构
+## 目录结构
 
 ```text
 .

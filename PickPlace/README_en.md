@@ -6,7 +6,7 @@ PickPlace implements a ROS 2 Humble manipulation pipeline for object detection, 
 
 The source package is stored under `src/pick_place_solution/`. The functional project name is used at the folder and README level; external simulator spawner package names are retained only where the supplied task services require them.
 
-## Highlights
+## Features
 
 | Area | Implementation |
 | --- | --- |
@@ -15,7 +15,7 @@ The source package is stored under `src/pick_place_solution/`. The functional pr
 | Manipulation | Gripper width control, pick offsets, release offsets, and return-home safety behaviour |
 | Robustness | Rescanning and retry controls for task runs that are sensitive to simulator timing |
 
-## One-Command Setup
+## Quick Start
 
 ```bash
 bash scripts/setup_environment.sh
@@ -45,7 +45,7 @@ You can also pass the task number directly:
 bash scripts/run_demo.sh 1
 ```
 
-## Result Snapshot
+## Results
 
 | Task | Demonstrated behaviour | Reported stability |
 | --- | --- | --- |
@@ -53,7 +53,7 @@ bash scripts/run_demo.sh 1
 | Task 2 | Scan, localise, and manipulate objects | High success in WSL/VM runs |
 | Task 3 | Repeated pick-and-place with rescanning | Above 90 percent, with rare simulator timing/color mismatch issues |
 
-## Layout
+## Project Layout
 
 ```text
 .

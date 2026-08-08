@@ -18,17 +18,20 @@ ROS_PACKAGES = {
 }
 
 
-def test_root_readme_has_quick_start_index_and_compatibility_note():
+def test_root_readme_has_standard_project_sections_and_compatibility_note():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     english = (ROOT / "README_en.md").read_text(encoding="utf-8")
-    assert "## 快速上手索引" in readme
+    assert "## 功能说明" in readme
     assert "## 结果展示" in readme
-    assert "## 核心功能" in readme
-    assert "## 复现边界" in readme
+    assert "## 快速上手" in readme
+    assert "## 环境要求" in readme
+    assert "## 数据说明" in readme
     assert "## Results" in english
-    assert "## Core Features" in english
-    assert "## Reproducibility Boundaries" in english
-    assert "外部依赖 `cw1_world_spawner` 和 `cw2_world_spawner`" in readme
+    assert "## Features" in english
+    assert "## Quick Start" in english
+    assert "## Requirements" in english
+    assert "## Data Notes" in english
+    assert "外部 spawner 包名保留为仿真接口兼容项" in readme
     assert (ROOT / "README_en.md").is_file()
     for project in PROJECTS:
         assert project in readme
@@ -50,9 +53,9 @@ def test_project_folder_names_are_pascal_case():
 def test_project_readmes_present_functional_entrypoints():
     for project in PROJECTS:
         readme = (ROOT / project / "README.md").read_text(encoding="utf-8")
-        assert "## 一键配置" in readme
+        assert "## 快速上手" in readme
         assert "## 运行" in readme
-        assert "## 结果快照" in readme
+        assert "## 结果展示" in readme
         assert ROS_PACKAGES[project] in readme
         assert (ROOT / project / "README_en.md").is_file()
 

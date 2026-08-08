@@ -6,7 +6,7 @@ PickPlace 是一个 ROS 2 Humble 机器人操作项目，用于在仿真工作�
 
 源码包位于 `src/pick_place_solution/`。项目目录和 README 使用功能命名；外部 simulator spawner 包名仅在课程仿真服务接口要求时保留。
 
-## 亮点
+## 功能说明
 
 | 方向 | 实现 |
 | --- | --- |
@@ -15,7 +15,7 @@ PickPlace 是一个 ROS 2 Humble 机器人操作项目，用于在仿真工作�
 | 机器人操作 | 夹爪宽度控制、抓取偏移、释放偏移和安全回 home |
 | 稳定性 | 对仿真时序敏感任务提供重扫和重试控制 |
 
-## 一键配置
+## 快速上手
 
 ```bash
 bash scripts/setup_environment.sh
@@ -45,7 +45,7 @@ bash scripts/run_demo.sh task 3
 bash scripts/run_demo.sh 1
 ```
 
-## 结果快照
+## 结果展示
 
 | 任务 | 展示行为 | 记录稳定性 |
 | --- | --- | --- |
@@ -53,7 +53,7 @@ bash scripts/run_demo.sh 1
 | Task 2 | 扫描、定位并操作物体 | WSL/VM 运行中成功率高 |
 | Task 3 | 带重扫的重复抓取放置 | 超过 90%，偶有仿真时序/颜色不匹配 |
 
-## 结构
+## 目录结构
 
 ```text
 .
