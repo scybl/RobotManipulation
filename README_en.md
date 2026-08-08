@@ -6,6 +6,15 @@ RobotManipulation is organised as two independent ROS 2 robotics projects. The o
 
 ![RobotManipulation preview](docs/images/manipulation-preview.svg)
 
+## Result Showcase
+
+| Showcase item | Current result | Notes |
+| --- | --- | --- |
+| Independent demos | `PickPlace` / `ShapeSorting` | Two ROS 2 Humble manipulation projects |
+| Perception chain | point cloud -> pose / shape class | From object localisation to grasping or sorting |
+| Engineering entry points | `pick_place_solution`, `shape_sorting_solution` | Owned ROS packages now use functional names |
+| Lightweight verification | 8 structure tests | README, scripts, and package metadata checked without ROS |
+
 ## Resume Highlights
 
 - Contains two ROS 2 manipulation pipelines: point-cloud pick-and-place, and nought/cross shape recognition with sorting.

@@ -6,6 +6,15 @@ RobotManipulation 是一个 ROS 2 Humble 机器人操作与感知展示仓库，
 
 ![RobotManipulation 演示预览](docs/images/manipulation-preview.svg)
 
+## 成果速览
+
+| 展示项 | 当前结果 | 说明 |
+| --- | --- | --- |
+| 独立演示 | `PickPlace` / `ShapeSorting` | 两个 ROS 2 Humble 操作项目独立运行 |
+| 感知链路 | point cloud -> pose / shape class | 从点云目标定位到抓取或分类放置 |
+| 工程入口 | `pick_place_solution`, `shape_sorting_solution` | 自有包名已按功能重命名 |
+| 轻量验证 | 8 个结构测试 | 无 ROS 环境下检查 README、脚本和包元数据 |
+
 ## 简历亮点
 
 - 包含两条 ROS 2 操作流水线：点云目标抓取放置，以及 nought/cross 形状识别与分类放置。
