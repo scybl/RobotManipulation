@@ -6,7 +6,10 @@ RobotManipulation 是一个 ROS 2 Humble 机器人操作工作空间，整合 `P
 
 外部 spawner 包名保留为仿真接口兼容项；自有 ROS 包使用功能命名：`pick_place_solution` 和 `shape_sorting_solution`。
 
-![RobotManipulation 演示预览](docs/images/manipulation-preview.svg)
+| 子项目 | 任务 | 感知输入 | 规划与执行 |
+| --- | --- | --- | --- |
+| `PickPlace` | 将目标物体抓取并放入指定篮筐 | Realsense 点云、仿真场景 | 位姿估计、MoveIt 抓取规划、夹爪控制 |
+| `ShapeSorting` | 识别 nought/cross 并分类放置 | 场景点云、STL/PCD 参考形状 | 形状匹配、障碍注册、避障规划和分类放置 |
 
 ## 功能说明
 
@@ -20,13 +23,10 @@ RobotManipulation 是一个 ROS 2 Humble 机器人操作工作空间，整合 `P
 
 ## 运行过程展示
 
-PickPlace 从点云采样开始，经过目标位姿估计和 MoveIt 抓取规划，最后将物体放入篮筐。
-
-![PickPlace 运行流程](docs/images/pick-place-run.svg)
-
-ShapeSorting 先扫描场景，再对 nought/cross 参考形状进行匹配，并在有障碍的场景中规划分类放置。
-
-![ShapeSorting 运行流程](docs/images/shape-sorting-run.svg)
+| 子项目 | 运行流程 | 异常处理 |
+| --- | --- | --- |
+| `PickPlace` | 采集点云 → 过滤桌面 → 定位目标与篮筐 → 规划接近和抓取 → 放置目标 | 执行失败时重新扫描、调整放置偏移并回到 home 位姿 |
+| `ShapeSorting` | 扫描场景 → 分割目标 → 匹配 nought/cross 参考形状 → 注册障碍物 → 规划分类放置 | 识别或规划失败时重扫、重试，并使用备用规划路径 |
 
 ## 结果展示
 
@@ -37,11 +37,15 @@ ShapeSorting 先扫描场景，再对 nought/cross 参考形状进行匹配，�
 
 > **结果数据说明**：上表"本地记录表现"来自课程作业验收阶段的运行记录（详见 `archive/`），并非本仓库自动生成或可一键复现的指标——早期版本曾写"稳定性超过90%"这类具体数字，但仓库内没有配套的日志、统计脚本或视频能重新推导出该数字，因此这里改为如实描述"记录为可完成"，不再给出未经验证的百分比。若需要量化复现，需要在下方"环境要求"里提到的仿真依赖齐备的前提下重新采集数据。
 
-结果摘要：
+详细结果摘要保存在 `docs/results/manipulation_summary.md`。仿真运行过程本身用上述表格和文字描述，不内嵌截图——因为 `PickPlace`/`ShapeSorting` 依赖的私有仿真包缺失，无法在当前环境重新生成真实的运行截图。
 
-- `docs/results/manipulation_summary.md`
-- `docs/images/pick-place-run.svg`
-- `docs/images/shape-sorting-run.svg`
+不过 `ShapeSorting` 实际用于形状匹配的参考点云数据是随仓库提供的，不依赖 ROS/Gazebo/私有包即可读取，因此下图是真实数据：
+
+<p align="center">
+  <img src="docs/images/reference-shapes-pointcloud.png" alt="ShapeSorting 真实 nought/cross 参考点云（x-z 正面投影）" width="760">
+</p>
+
+上图由 `scripts/generate_reference_shape_visuals.py` 直接解析 `ShapeSorting/src/shape_sorting_solution/data/{nought,cross}_40mm.pcd`（二进制 PCD v0.7，每个约10万点）生成，取 x-z 正面投影（y 为约40mm的挤出厚度），可复现，不是仿真截图，也不是手绘示意图。
 
 ## 快速上手
 
@@ -95,7 +99,7 @@ bash scripts/run_project.sh shape-sorting task 3
 
 ## 数据说明
 
-项目使用仿真场景和本地形状资产，不依赖外部数据集。`ShapeSorting/src/shape_sorting_solution/data/` 包含 nought/cross 的 STL 与 PCD 参考资产；完整运行需要本地 ROS 2 和仿真器环境。
+项目使用仿真场景和本地形状资产，不依赖外部数据集。`ShapeSorting/src/shape_sorting_solution/data/` 包含 nought/cross 的 STL 与 PCD 参考资产；完整运行需要本地 ROS 2 和仿真器环境，但读取并可视化这两个 PCD 文件本身不需要 ROS，运行 `python scripts/generate_reference_shape_visuals.py`（仅依赖 numpy/matplotlib）即可重新生成上面"结果展示"里的参考点云图。
 
 ## 目录结构
 
@@ -103,7 +107,7 @@ bash scripts/run_project.sh shape-sorting task 3
 PickPlace/                              抓取放置演示
 ShapeSorting/                           形状分类放置演示
 scripts/run_project.sh                  根级运行入口
-docs/images/                            README 预览图和运行流程图
+docs/images/                            真实参考点云图（README内嵌）与历史演示资产
 docs/results/manipulation_summary.md    结果摘要
 tests/                                  无 ROS 结构测试
 archive/                                原始材料归档
