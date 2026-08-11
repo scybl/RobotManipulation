@@ -2,18 +2,18 @@
 
 [English](README_en.md)
 
-PickPlace 是一个 ROS 2 Humble 机器人操作项目，用于在仿真工作站中完成目标检测、定位、抓取规划和放置执行。项目结合点云滤波、MoveIt 规划、夹爪控制和重复场景扫描，覆盖三个 pick-and-place 任务。
+PickPlace 是一个 ROS 2 Humble 抓取放置演示，用于在仿真工作站中完成目标检测、定位、抓取规划和篮筐放置。项目结合点云滤波、平面分割、颜色/几何线索、MoveIt 规划、夹爪控制和重复场景重扫。
 
-源码包位于 `src/pick_place_solution/`。项目目录和 README 使用功能命名；外部 simulator spawner 包名仅在课程仿真服务接口要求时保留。
+源码包位于 `src/pick_place_solution/`。项目目录和 README 使用功能命名；外部 simulator spawner 包名仅在仿真服务接口要求时保留。
 
 ## 功能说明
 
 | 方向 | 实现 |
 | --- | --- |
-| 场景感知 | Realsense 点云处理、滤波、聚类、平面/篮筐检测 |
+| 场景感知 | Realsense 点云处理、滤波、聚类、平面检测和篮筐检测 |
 | 运动规划 | MoveIt 位姿目标、笛卡尔接近/撤离路径和失败回退 |
 | 机器人操作 | 夹爪宽度控制、抓取偏移、释放偏移和安全回 home |
-| 稳定性 | 对仿真时序敏感任务提供重扫和重试控制 |
+| 稳定性 | 对仿真时序敏感场景提供重扫、重试和放置后复检 |
 
 ## 快速上手
 
@@ -21,7 +21,7 @@ PickPlace 是一个 ROS 2 Humble 机器人操作项目，用于在仿真工作�
 bash scripts/setup_environment.sh
 ```
 
-脚本会 source ROS 2 Humble，设置测试运行需要的环境变量，并用 `colcon` 构建包。
+脚本会 source ROS 2 Humble，设置运行环境变量，并用 `colcon` 构建 `pick_place_solution`。
 
 ## 运行
 
@@ -31,7 +31,7 @@ bash scripts/setup_environment.sh
 bash scripts/run_demo.sh launch
 ```
 
-另一个终端触发任务：
+另一个终端触发场景服务：
 
 ```bash
 bash scripts/run_demo.sh task 1
@@ -39,7 +39,7 @@ bash scripts/run_demo.sh task 2
 bash scripts/run_demo.sh task 3
 ```
 
-也可以直接传任务编号：
+也可以直接传场景编号：
 
 ```bash
 bash scripts/run_demo.sh 1
@@ -47,11 +47,13 @@ bash scripts/run_demo.sh 1
 
 ## 结果展示
 
-| 任务 | 展示行为 | 记录稳定性 |
+| 场景 | 展示行为 | 运行记录 |
 | --- | --- | --- |
-| Task 1 | 抓取并放置已知物体 | WSL/VM 运行中成功率高 |
-| Task 2 | 扫描、定位并操作物体 | WSL/VM 运行中成功率高 |
-| Task 3 | 带重扫的重复抓取放置 | 超过 90%，偶有仿真时序/颜色不匹配 |
+| 场景 1 | 抓取并放置已知物体 | 稳定完成 |
+| 场景 2 | 扫描、定位并操作物体 | 稳定完成 |
+| 场景 3 | 带重扫的重复抓取放置 | 记录稳定性超过 90%，对仿真时序和颜色观测更敏感 |
+
+运行流程图见 `../docs/images/pick-place-run.svg`。
 
 ## 目录结构
 

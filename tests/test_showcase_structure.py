@@ -38,9 +38,23 @@ def test_root_readme_has_standard_project_sections_and_compatibility_note():
 
 
 def test_showcase_preview_asset_exists_and_is_valid_svg():
-    image = ROOT / "docs" / "images" / "manipulation-preview.svg"
-    assert image.is_file()
-    ET.parse(image)
+    images = [
+        ROOT / "docs" / "images" / "manipulation-preview.svg",
+        ROOT / "docs" / "images" / "pick-place-run.svg",
+        ROOT / "docs" / "images" / "shape-sorting-run.svg",
+    ]
+    for image in images:
+        assert image.is_file()
+        ET.parse(image)
+
+
+def test_runtime_summary_document_exists():
+    summary = ROOT / "docs" / "results" / "manipulation_summary.md"
+    text = summary.read_text(encoding="utf-8")
+    assert "PickPlace" in text
+    assert "ShapeSorting" in text
+    assert "pick_place_solution" in text
+    assert "shape_sorting_solution" in text
 
 
 def test_project_folder_names_are_pascal_case():
@@ -80,13 +94,13 @@ def test_ros_package_metadata_and_cmake_sources_are_consistent():
 
 
 def test_shell_entrypoints_are_syntax_valid_without_ros():
-    scripts = sorted(ROOT.glob("*/scripts/*.sh"))
+    scripts = sorted(ROOT.glob("scripts/*.sh")) + sorted(ROOT.glob("*/scripts/*.sh"))
     assert scripts
     for script in scripts:
         subprocess.run(["bash", "-n", str(script)], check=True)
 
 
-def test_own_package_names_do_not_use_coursework_prefixes():
+def test_own_package_names_do_not_use_legacy_prefixes():
     blocked_patterns = ["cw1" + "_team_", "cw2" + "_team_"]
     searchable_files = [
         path

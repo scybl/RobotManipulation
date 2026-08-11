@@ -1,50 +1,38 @@
-# COMP0250 Coursework 2
+# ShapeSorting Archived Runtime Note
 
-Github repo: https://github.com/CHIZHIGA/cw2_team_14
+This note keeps the original runtime observations for the ShapeSorting demo before the active package was reorganised under `src/shape_sorting_solution/`.
 
-This coursework has been run on both WSL and virtual machines.
-The success rate of the Task1 exceeded 90%.  
-The success rate of the Task2 is 100%.  
-The success rate of the Task3 exceeded 90%.  
-Therefore, in such cases, we hope that the instructor and teaching assistants can run the code multiple times to observe the results and structure.
+## Runtime Behaviour
 
-## 📌 Authors  
+The demo was exercised on both WSL and virtual-machine environments. The single-object recognition and clutter-aware sorting scenarios were recorded above 90 percent stability. The reference-shape matching scenario was recorded as stable in the available runs.
 
-- Student A (Zhenggang Chen) Total time consume: 2+5+5+3
-  * 2 hours for Initial commit for Task1 on Apr 4, 2026;
-  * 5 hours for Task2 on Apr 9, 2026;
-  * 5 hours for Task3 recognize problem on Apr 17, 2026;
-  * 3 hours for Task3 on Apr 25, 2026.
-- Student B (Yihan Wang) Total time consume: 5+10
-  * 5 hours for Task3 on Apr 9, 2026;
-  * 10 hours for Task3 pick and place problem on Apr 24, 2026;
-- Student C (Bingze Li) Total time consume: 6+11
-  * 6 hours for Task1 demo on Apr 8, 2026;
-  * 11 hours for Task1 on Apr 20, 2026.
+## Active Package
 
----
+The current maintained ROS 2 package is:
 
-## 📦 Package  
+```text
+shape_sorting_solution
+```
 
-This submission contains the ROS2 package:
-
-cw2_team_14
-
-All solution code is implemented inside this package.
-
----
-
-## ⚙️ build and run the package 
-
-This project requires ROS2 Humble
+## Build And Run
 
 ```bash
-# bash 1
+source /opt/ros/humble/setup.bash
+export PATH=/usr/bin:$PATH
+export RMW_FASTRTPS_USE_SHM=0
+colcon build --packages-select shape_sorting_solution
 source install/setup.bash
-colcon build --packages-select cw1_team_14
-ros2 launch cw2_team_14 run_solution.launch.py   use_gazebo_gui:=true use_rviz:=false
-# bash 2
+ros2 launch shape_sorting_solution run_solution.launch.py use_gazebo_gui:=true use_rviz:=false
+```
+
+Trigger the simulator scenarios from another terminal:
+
+```bash
+source /opt/ros/humble/setup.bash
 source install/setup.bash
+export PATH=/usr/bin:$PATH
+export RMW_FASTRTPS_USE_SHM=0
 ros2 service call /task cw2_world_spawner/srv/TaskSetup "{task_index: 1}"
 ros2 service call /task cw2_world_spawner/srv/TaskSetup "{task_index: 2}"
 ros2 service call /task cw2_world_spawner/srv/TaskSetup "{task_index: 3}"
+```
